@@ -1,6 +1,6 @@
 # Division2Statistics
 
-# Explenation
+# Explanation
 
 Recently I was kinda bored searching up my Division 2 statistics through Google, so I made this Electron application that kindly abuses
 tracker.gg to bypass that whole previous hassle.
