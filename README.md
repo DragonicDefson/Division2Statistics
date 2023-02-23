@@ -1,5 +1,10 @@
 # Division2Statistics
 
+# Explenation
+
+Recently I was kinda bored searching up my Division 2 statistics through Google, so I made this Electron application that kindly abuses
+tracker.gg to bypass that whole previous hassle.
+
 # How to build
 
 Change the config.json username entry with your username.
