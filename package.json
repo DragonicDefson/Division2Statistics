@@ -1,0 +1,60 @@
+{
+  "name": "division-2-statistics",
+  "version": "0.0.1",
+  "description": "Division 2 statistics application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "author": "Bradley Methorst <contact@bradleymethorst.com>",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "electron": "^23.1.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "appicons/icon",
+        "extraResource": [
+          "./config.json",
+          "./appicons",
+          "./adlists"
+        ]
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "authors": "Bradley Methorst <contact@bradleymethorst.com>",
+            "description": "Division 2 statistics application",
+            "iconUrl": "https://github.com/DragonicDefson/Division2Statistics/blob/master/icon-win-ico.ico",
+            "setupIcon": "appicons/icon.ico"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {
+            "authors": "Bradley Methorst <contact@bradleymethorst.com>",
+            "description": "Division 2 statistics application",
+            "options": {
+              "icon": "appicons/512x512.png"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@cliqz/adblocker-electron": "^1.26.0",
+    "cross-fetch": "^3.1.5",
+    "dotenv": "^16.0.3",
+    "electron-squirrel-startup": "^1.0.0"
+  }
+}

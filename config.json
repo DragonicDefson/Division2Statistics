@@ -1,0 +1,15 @@
+{
+  "application": {
+    "author": "Bradley Methorst <contact@bradleymethorst.com>",
+    "license": "GPL-3.0",
+    "name": "division-2-statistics",
+    "description": "Division 2 statistics application",
+    "username": "",
+    "url": "https://tracker.gg/division-2/profile/uplay/",
+    "icon_path": "assets",
+    "adlist_path": "adlists",
+    "debug_enabled": false,
+    "adblock_enabled": true,
+    "webserver_port": 3892
+  }
+}
