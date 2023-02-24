@@ -1,22 +1,19 @@
 {
   "name": "division-2-statistics",
   "version": "0.0.1",
-  "description": "Division 2 statistics application",
+  "description": "The Division 2 statistics application",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
   "author": "Bradley Methorst <contact@bradleymethorst.com>",
   "license": "GPL-3.0",
-  "devDependencies": {
-    "@electron-forge/cli": "^6.0.5",
-    "@electron-forge/maker-deb": "^6.0.5",
-    "@electron-forge/maker-rpm": "^6.0.5",
-    "@electron-forge/maker-squirrel": "^6.0.5",
-    "@electron-forge/maker-zip": "^6.0.5",
-    "electron": "^23.1.1"
+  "dependencies": {
+    "@cliqz/adblocker-electron": "^1.26.0",
+    "cross-fetch": "^3.1.5",
+    "electron-squirrel-startup": "^1.0.0"
   },
   "config": {
     "forge": {
@@ -34,7 +31,7 @@
           "config": {
             "authors": "Bradley Methorst <contact@bradleymethorst.com>",
             "description": "Division 2 statistics application",
-            "iconUrl": "https://github.com/DragonicDefson/Division2Statistics/blob/master/icon-win-ico.ico",
+            "iconUrl": "https://raw.githubusercontent.com/DragonicDefson/Division2Statistics/main/appicons/icon.ico",
             "setupIcon": "appicons/icon.ico"
           }
         },
@@ -51,10 +48,12 @@
       ]
     }
   },
-  "dependencies": {
-    "@cliqz/adblocker-electron": "^1.26.0",
-    "cross-fetch": "^3.1.5",
-    "dotenv": "^16.0.3",
-    "electron-squirrel-startup": "^1.0.0"
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "electron": "^23.1.1"
   }
 }
