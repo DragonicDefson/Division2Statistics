@@ -4,12 +4,16 @@
     "license": "GPL-3.0",
     "name": "division-2-statistics",
     "description": "Division 2 statistics application",
-    "username": "",
+    "username": "DragonicDefson",
     "url": "https://tracker.gg/division-2/profile/uplay/",
-    "icon_path": "assets",
-    "adlist_path": "adlists",
-    "debug_enabled": false,
-    "adblock_enabled": true,
-    "webserver_port": 3892
+    "debug": false,
+    "adblock": true,
+    "port": 3892,
+    "hostname": "localhost",
+    "hardware_acceleration": false,
+    "monitor": {
+      "__description": "0 for primary, 1 for secondary. Default: 0",
+      "value": 1
+    }
   }
 }

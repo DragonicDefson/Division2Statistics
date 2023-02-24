@@ -1,71 +1,98 @@
-const { app, BrowserWindow } = require('electron')
-const config = require('./config.json')
+const { app, BrowserWindow, screen } = require('electron')
+const configuration = require('./config.json').application
 const { ElectronBlocker } = require('@cliqz/adblocker-electron')
 const fetch = require('cross-fetch')
 const fs = require('fs')
 const http = require('http')
 const resources = process.resourcesPath
+const path = require('path')
 
-app.disableHardwareAcceleration()
+let extension, x, y = undefined
+
+const config = {
+  url: configuration.url,
+  username: configuration.username,
+  debug: configuration.debug,
+  port: configuration.port,
+  hostname: configuration.hostname,
+  adblock: configuration.adblock,
+  hardware_acceleration: configuration.hardware_acceleration,
+  monitor: configuration.monitor.value
+}
+
+if (!config.hardware_acceleration) { app.disableHardwareAcceleration() }
 
 const createWindow = () => {
-  let iconExt = undefined; let platform = process.platform
-  switch (platform) {
-    case 'linux': iconExt = 'icon.png'; break;
-    case 'darwin': iconExt = 'icon.icns'; break;
-    default: iconExt = 'icon.ico'; break;
+  const display = {
+    all: screen.getAllDisplays(),
+    primary: screen.getPrimaryDisplay()
+  }  
+  switch (process.platform) {
+    case 'linux': extension = 'icon.png'; break;
+    case 'darwin': extension = 'icon.icns'; break;
+    default: extension = 'icon.ico'; break;
   }
-  const win = new BrowserWindow({
+  const query = display.all.find((display) => {
+    return display.bounds.x !== 0 || display.bounds.y !== 0
+  })
+  if (config.monitor === 0) {
+    x = display.primary.bounds.x
+    y = display.primary.bounds.y
+  } else {
+    x = query.bounds.x + 50
+    y = query.bounds.y + 50
+  }
+  config_enum = {
     show: false,
-    icon: `${resources}/appicons/${iconExt}`,
+    icon: `${resources}/appicons/${extension}`,
+    x: x,
+    y: y,
     webPreferences: {
       nodeIntegration: false
     }
-  })
-  const session = win.webContents.session; win.maximize()
-  switch(config.application.debug_enabled) {
-    case true:
-      loadApp(win)
-      fileLoader(session)
-      win.webContents.openDevTools()
-    break;
-    default:
-      loadApp(win)
-      fileLoader(session)
-    break;
   }
+  window = new BrowserWindow(config_enum)
+  const session = window.webContents.session;
+  if (config.debug) { window.webContents.openDevTools() }
+  loadApp(window); fileLoader(session); winSettings(window)
+}
+
+const winSettings = (window) => {
+  window.setMenuBarVisibility(false)
+  window.maximize()
+  window.show()
 }
 
 const fileLoader = (session) => {
-  const webserver_port = config.application.webserver_port
+  const port = config.port; const hostname = config.hostname
   http.createServer((request, response) => {
-    let pathname = request.url
-    fs.readFile(`${resources}/adlists${pathname}`, (exception, data) => {
-      if (exception) { return; } else { response.end(data) }
+    const filepath = path.join(resources, `/adlists${request.url}`)
+    fs.readFile(filepath, (exception, data) => {
+      if (exception) { return } else { response.end(data) }
     })
-  }).listen(webserver_port, 'localhost')
+  }).listen(port, hostname)
   ElectronBlocker.fromLists(fetch, [
-    `http://localhost:${webserver_port}/easylist.txt`,
-    `http://localhost:${webserver_port}/ultimate-ad-filter.txt`
+    `http://${hostname}:${port}/easylist.txt`,
+    `http://${hostname}:${port}/ultimate-ad-filter.txt`
   ]).then((blocker) => {
-    switch (config.application.adblock_enabled) {
+    switch (config.adblock) {
       case true: blocker.enableBlockingInSession(session); break;
       default: blocker.disableBlockingInSession(session); break;
     }
   })
 }
 
-const loadApp = (win) => {
-  const username = config.application.username
-  win.loadURL(`${config.application.url}${username}/overview`).then(() => {
-    win.setTitle(`${username} - The Division 2 - statistics`)
+const loadApp = (window) => {
+  const username = config.username
+  const profile = `${config.url}${username}/overview`
+  window.loadURL(profile).then(() => {
+    window.setTitle(`${username} - The Division 2 - statistics`)
   })
-  win.show()
 }
 
 app.whenReady().then(() => {
-  if (require('electron-squirrel-startup')) { app.quit() } else { createWindow() }
   app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') { app.quit() }
+    if (process.platform !== 'darwin' || require('electron-squirrel-startup')) { app.quit() }
   })
+  createWindow()
 })
