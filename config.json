@@ -13,7 +13,7 @@
     "hardware_acceleration": false,
     "monitor": {
       "__description": "0 for primary, 1 for secondary. Default: 0",
-      "value": 1
+      "value": 0
     }
   }
 }
