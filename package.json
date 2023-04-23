@@ -1,12 +1,14 @@
 {
-  "name": "division-2-statistics",
+  "name": "division2stats",
   "version": "0.0.1",
   "description": "The Division 2 statistics application",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "install": "sudo bash ./install.sh",
+    "uninstall": "sudo bash ./uninstall.sh"
   },
   "author": "Bradley Methorst <contact@bradleymethorst.com>",
   "license": "GPL-3.0",
@@ -18,30 +20,46 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "appicons/icon",
-        "extraResource": [
-          "./config.json",
-          "./appicons",
-          "./adlists"
-        ]
+        "icon": "./assets/icon.png"
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
+            "title": "Division2Statistics",
             "authors": "Bradley Methorst <contact@bradleymethorst.com>",
-            "description": "Division 2 statistics application",
-            "iconUrl": "https://raw.githubusercontent.com/DragonicDefson/Division2Statistics/main/appicons/icon.ico",
-            "setupIcon": "appicons/icon.ico"
+            "productName": "Division2Statistics",
+            "productDescription": "The Division 2 statistics application",
+            "iconUrl": "https://raw.githubusercontent.com/DragonicDefson/Division2Statistics/main/assets/icon.ico",
+            "setupIcon": "./assets/icon.ico",
+            "setupExe": "Division2StatsSetup.exe"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {
+            "authors": "Bradley Methorst <contact@bradleymethorst.com>",
+            "description": "The Division 2 statistics application",
+            "options": {
+              "title": "Division2Statistics",
+              "genericName": "Division2Statistics",
+              "productName": "Division2Statistics",
+              "productDescription": "The Division 2 statistics application",
+              "icon": "./assets/icon.png"
+            }
           }
         },
         {
           "name": "@electron-forge/maker-deb",
           "config": {
             "authors": "Bradley Methorst <contact@bradleymethorst.com>",
-            "description": "Division 2 statistics application",
+            "description": "The Division 2 statistics application",
             "options": {
-              "icon": "appicons/512x512.png"
+              "title": "Division2Statistics",
+              "genericName": "Division2Statistics",
+              "productName": "Division2Statistics",
+              "productDescription": "The Division 2 statistics application",
+              "icon": "./assets/icon.png"
             }
           }
         }

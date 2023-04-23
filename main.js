@@ -26,7 +26,7 @@ const createWindow = () => {
   const display = {
     all: screen.getAllDisplays(),
     primary: screen.getPrimaryDisplay()
-  }  
+  }
   switch (process.platform) {
     case 'linux': extension = 'icon.png'; break;
     case 'darwin': extension = 'icon.icns'; break;
@@ -44,7 +44,7 @@ const createWindow = () => {
   }
   config_enum = {
     show: false,
-    icon: `${resources}/appicons/${extension}`,
+    icon: "./assets/icon.png",
     x: x,
     y: y,
     webPreferences: {
