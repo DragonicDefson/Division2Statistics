@@ -66,9 +66,9 @@ const winSettings = (window) => {
 const fileLoader = (session) => {
   const port = config.port; const hostname = config.hostname
   http.createServer((request, response) => {
-    const filepath = path.join(resources, `/adlists${request.url}`)
+    const filepath = path.join(__dirname, `/adlists${request.url}`)
     fs.readFile(filepath, (exception, data) => {
-      if (exception) { return } else { response.end(data) }
+      if (exception) { console.log(exception) } else { response.end(data) }
     })
   }).listen(port, hostname)
   ElectronBlocker.fromLists(fetch, [

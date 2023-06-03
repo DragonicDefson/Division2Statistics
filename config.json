@@ -4,6 +4,7 @@
     "license": "GPL-3.0",
     "name": "Division2Stats",
     "description": "Division 2 statistics application",
+    "__desc_username": "CHANGE TO YOUR USERNAME",
     "username": "",
     "url": "https://tracker.gg/division-2/profile/uplay/",
     "debug": false,

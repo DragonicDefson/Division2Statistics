@@ -22,6 +22,7 @@
       "packagerConfig": {
         "icon": "./assets/icon.png"
       },
+      "extraFiles": [ "./adlists/*" ],
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
